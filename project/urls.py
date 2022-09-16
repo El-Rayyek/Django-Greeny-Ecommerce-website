@@ -22,7 +22,8 @@ from project.settings import DEBUG
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('products/',include('products.urls',namespace='products'))
+    path('products/',include('products.urls',namespace='products')),
+    path('summernote/', include('django_summernote.urls')),
 ]
 
 if settings.DEBUG :
