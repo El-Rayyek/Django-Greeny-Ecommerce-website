@@ -1,12 +1,13 @@
 from contextlib import nullcontext
 from distutils.text_file import TextFile
+from email.policy import default
 from django.db import models
 from django.utils.translation import gettext as _
 from settings.models import Country , City
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
+from utils.generator import generator
 
 
 # Create your models here.
@@ -23,6 +24,8 @@ DATA_TYPE = (
 class Profile(models.Model):
     user = models.OneToOneField(User, verbose_name=_("Profile"),related_name='Profile' ,on_delete=models.CASCADE)
     image = models.ImageField(_("Image"), upload_to='profile/',null =True,blank = True)
+    code = models.CharField(_("code"), max_length=8 ,default= generator)
+    code_used = models.BooleanField(_("Code Used"), default=False)
 
     def __str__(self) -> str:
         return self.user.username

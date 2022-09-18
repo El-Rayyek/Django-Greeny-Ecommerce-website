@@ -1,16 +1,13 @@
 from django.utils import timezone
 from django.db import models
 from django.utils.translation import gettext as _
-import  random
+from utils.generator import generator
 from products.models import Product
 
 
 
 # Create your models here.
 
-def generator(length = 8):
-    code = ''.join(random.choice('1234567890') for _ in range(length))
-    return code
 
 ORDER_STATUS =(
         ('Recieved','Recieved'),
