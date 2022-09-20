@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render , redirect
 from .models import Profile , UserAddress , UserPhoneNumbers
-from .forms import ProfileSign
+from .forms import ProfileSign , UserActiveForm
 from django.core.mail import send_mail
 from django.conf import settings
 
@@ -25,16 +25,35 @@ def signup(request):
             print(profile)
             print(profile.code)
             send_mail(
-                        'Active your Account',
-                        f'This code {profile.code} for activate your account',
-                        settings.EMAIL_HOST_USER,
-                        [email,],
+                        subject= 'Active your Account',
+                        message= f'This code {profile.code} for activate your account',
+                        from_email = 'aymanabdelfattahm@gmail.com',
+                        recipient_list = [email],
                         fail_silently=False,
                     )
+            return redirect(f'/accounts/{username}/activate')
 
     else :
         form = ProfileSign()
     return render(request,'registeration/signup.html',{'form':form})
+
+def active_user(request,username):
+    profile = Profile.objects.get(user__username = username)
+    if request.method == 'POST':
+        form = UserActiveForm(request.POST)
+        if form.is_valid():
+            code = form.cleaned_data['code']
+            if profile.code == code :
+                profile.code_used = True
+                form.save()
+                return redirect('/accounts/login')
+    
+    else:
+        form = UserActiveForm()
+    return render(request,"registeration/activate.html",{'form':form})
+    
+    
+
 
 
 
