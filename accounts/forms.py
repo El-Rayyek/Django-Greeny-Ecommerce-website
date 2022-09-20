@@ -9,6 +9,6 @@ class ProfileSign(UserCreationForm):
         fields = ['username','email','password1','password2']
 
 
-class UserActiveForm(forms.ModelForm):
+class UserActiveForm(forms.Form):
     code = forms.CharField(max_length=8)
     
