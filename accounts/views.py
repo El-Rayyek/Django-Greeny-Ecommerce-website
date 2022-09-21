@@ -35,7 +35,7 @@ def signup(request):
 
     else :
         form = ProfileSign()
-    return render(request,'registeration/signup.html',{'form':form})
+    return render(request,'registration/signup.html',{'form':form})
 
 def active_user(request,username):
     profile = Profile.objects.get(user__username = username)
@@ -50,7 +50,7 @@ def active_user(request,username):
     
     else:
         form = UserActiveForm()
-    return render(request,"registeration/activate.html",{'form':form})
+    return render(request,"registration/activate.html",{'form':form})
     
     
 
@@ -58,7 +58,11 @@ def active_user(request,username):
 
 
 def profile(request):
-    pass
+    profile = Profile.objects.get(user=request.user)
+    user_phone = UserPhoneNumbers.objects.filter(user = request.user)
+    user_address = UserAddress.objects.filter(user = request.user)
+
+    return render(request,'registration/profile.html',{'profile':profile,'phones':user_phone,'address':user_address})
 
 def edit_profile(request):
     pass

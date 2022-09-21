@@ -24,7 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('products/',include('products.urls',namespace='products')),
     path('summernote/', include('django_summernote.urls')),
-    path('accounts/',include('accounts.urls',namespace='accounts'))
+    path('accounts/',include('accounts.urls',namespace='accounts')),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
 
 if settings.DEBUG :

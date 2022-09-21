@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'accounts',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,7 +43,6 @@ INSTALLED_APPS = [
     "taggit",
     'products',
     'orders',
-    'accounts',
     'settings',
 ]
 
@@ -145,5 +145,5 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER ='aymanabdelfattahm@gmail.com'
 EMAIL_HOST_PASSWORD = 'lczjbdnovzlkllkg'
 
-
+# LOGIN_REDIRECT_URL = '/'
 # DEFAULT_FROM_EMAIL = 'ym7241430@gmail.com'
