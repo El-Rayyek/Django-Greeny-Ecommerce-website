@@ -1,3 +1,4 @@
+from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.utils.translation import gettext as _
 
@@ -22,3 +23,17 @@ class City(models.Model):
     
     class Meta:
         verbose_name_plural = 'Cities'
+
+class Company(models.Model):
+    name = models.CharField(_("Name Company"), max_length=50)
+    logo = models.ImageField(_("Logo"), upload_to='company')
+    about = models.TextField(_("about"), null=True,blank=True , max_length = 300)
+    fb_link = models.URLField(_("Face Book"), null=True,blank=True , max_length=200)
+    tw_link = models.URLField(_("Twitter"), null=True,blank=True , max_length=200)
+    ins_link = models.URLField(_("Instegram"), null=True,blank=True , max_length=200)
+    email = models.EmailField(_("Email"), null=True,blank=True , max_length=200)
+    phone = models.CharField(_("Phone"), max_length=50)
+    address = models.CharField(_("Address"), max_length=50)
+
+    def __str__(self) -> str:
+        return self.name

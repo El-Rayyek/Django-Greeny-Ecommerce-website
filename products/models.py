@@ -44,9 +44,14 @@ class Category(models.Model):
 class Brand(models.Model):
     name  = models.CharField(_("Name"), max_length=100)
     image = models.ImageField(_("Image"), upload_to='Brand/',null= True,blank=True)
+    slug = models.SlugField(_("slug"),null=True , blank=True )
 
     def __str__(self) :
         return self.name
+
+    def save(self):
+        self.slug = slugify(self.name)
+        return super(Brand,self).save()
 
 class Review(models.Model):
     product     = models.ForeignKey("Product", verbose_name=_("Product"),related_name='review_product' ,on_delete=models.SET_NULL ,null =True,blank=True)

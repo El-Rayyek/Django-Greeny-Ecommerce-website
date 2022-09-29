@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from telnetlib import AUTHENTICATION
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -69,6 +70,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'settings.site_context_processor.get_site_info',
+                'accounts.user_context_processor.get_user',
+                'products.products_context_processor.get_brand',
             ],
         },
     },
@@ -147,3 +151,6 @@ EMAIL_HOST_PASSWORD = 'lczjbdnovzlkllkg'
 
 # LOGIN_REDIRECT_URL = '/'
 # DEFAULT_FROM_EMAIL = 'ym7241430@gmail.com'
+
+
+AUTHENTICATION_BACKENDS = ['accounts.backend.EmailBackend']
