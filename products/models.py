@@ -1,3 +1,4 @@
+from distutils.command.upload import upload
 from django.db import models
 from django.utils.translation import gettext as _
 from django.contrib.auth.models import User
@@ -25,10 +26,11 @@ class Product(models.Model):
     tags  = TaggableManager(blank=True)
     flag  = models.CharField(_("Flag"), max_length=10 ,choices=FLAG_TYPE)
     slug = models.SlugField(_("Slug"),null=True,blank=True)
+    image = models.ImageField(_("image"),upload_to = 'products/')
 
-    def save(self):
+    def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
-        return super(Product,self).save()
+        return super(Product,self).save( *args, **kwargs)
 
     def __str__(self) :
         return self.name
@@ -46,12 +48,12 @@ class Brand(models.Model):
     image = models.ImageField(_("Image"), upload_to='Brand/',null= True,blank=True)
     slug = models.SlugField(_("slug"),null=True , blank=True )
 
-    def __str__(self) :
+    def __str__(self) : 
         return self.name
 
-    def save(self):
+    def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
-        return super(Brand,self).save()
+        return super(Brand,self).save( *args, **kwargs)
 
 class Review(models.Model):
     product     = models.ForeignKey("Product", verbose_name=_("Product"),related_name='review_product' ,on_delete=models.SET_NULL ,null =True,blank=True)

@@ -157,7 +157,7 @@
                     </div>
                 </div>
                 <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 isotope-items">
-                {% for brand in brand_list %}  
+                {% for brand in brands %}  
                     <div class="col all vegetables">
                         <div class="brand-wrap">
                             <div class="brand-media">
@@ -172,11 +172,9 @@
                             </div>
                             <div class="brand-meta">
                                 <h4>{{brand.name}}</h4>
-                                {% for brand in brands %}
-                                    {% if forloop.first %}
-                                        <p>({{brand.brand_count}} items)</p>
-                                    {% endif %}
-                                {% endfor %}
+                                
+                                        <p>({{brand.brand_count}} items)</p>                             
+                              
                             </div>
                         </div>
                     </div>

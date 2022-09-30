@@ -5,9 +5,17 @@ from django.db.models import Count
 # Create your views here.
 
 
-class product_list(ListView):
+def product_list(request):
+    products = Product.objects.all()
+
+    return render(request,'products/list.html',{'data':products})
+
+
+
+
+class Product_list(ListView):
     model = Product
-    paginate_by = 1
+    paginate_by = 100
 
 class product_detail(DetailView):
     model = Product
@@ -21,7 +29,7 @@ class product_detail(DetailView):
     
 class Category_list(ListView):
     model = Category
-    paginate_by = 2
+    paginate_by = 20
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -31,7 +39,7 @@ class Category_list(ListView):
 
 class Brand_list(ListView):
     model = Brand
-    paginate_by = 2
+    paginate_by = 20
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
