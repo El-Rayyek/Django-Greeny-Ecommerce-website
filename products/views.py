@@ -2,13 +2,24 @@ from django.shortcuts import render
 from .models import Product , ProductImage , Review , Category , Brand 
 from django.views.generic import ListView , DetailView
 from django.db.models import Count
+from django.db.models import Q ,F
 # Create your views here.
 
 
 def product_list(request):
-    products = Product.objects.all()
-
-    return render(request,'products/list.html',{'data':products})
+    # querset = Product.objects.filter(name__contains='fo',price__gt = 30)
+    # querset = Product.objects.filter(
+    #     Q(name__contains='fo') & 
+    #     ~Q(price__gt = 30))
+    # queryset = Product.objects.filter(id = F('category__id'))
+    # queryset = Product.objects.order_by('name','-price').reverse()
+    # queryset = Product.objects.latest('name') or .earliest()
+    # queryset = Product.objects.order_by('name')[10:20]
+    # queryset = Product.objects.values_list('id','name','price','category__name').distinct()
+    # queryset = Product.objects.only('id','name','price')
+    # queryset = Product.objects.defer('id','name','price') #without
+    queryset = Product.objects.select_related('category').select_related('brand').all() #to get data from foreignkey relation speed
+    return render(request,'products/list.html',{'data':queryset})
 
 
 
